@@ -1,0 +1,23 @@
+unset CUDA_VISIBLE_DEVICES
+python -m paddle.distributed.launch --gpus "0,1" --log_dir ./save/persona/log train.py \
+    --model_name_or_path="./persona/" \
+    --vocab_file=./persona/vocab.txt \
+    --save_dir=./save/persona/checkpoints \
+    --output_path=./save/persona/predict.txt \
+    --logging_steps=100 \
+    --save_steps=500 \
+    --epochs=30 \
+    --batch_size=128 \
+    --learning_rate=5e-4 \
+    --warmup_propotion=0.02 \
+    --weight_decay=0.01 \
+    --max_seq_len=512 \
+    --max_target_len=30 \
+    --do_train \
+    --do_eval \
+    --max_dec_len=30 \
+    --min_dec_len=3 \
+    --num_return_sequences=1 \
+    --device=gpu \
+    --train_file data/train.jsonl \
+    --predict_file data/dev.jsonl
