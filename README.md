@@ -50,7 +50,7 @@ Controllable Dialogue Generation（CDG），即可控对话生成，指的是给
 ```
 
 ### 可控对话生成定制训练全流程介绍
-接下来，我们将按数据准备、训练、预测、推理部署等四个阶段对问题生成应用的全流程进行介绍。
+接下来，我们将按数据准备、训练、预测推理三个阶段对可控对话生成进行介绍。
 1. **数据准备**
 - 使用已做好属性处理的对话生成数据集Persona-Chat进行实验。
 
@@ -63,11 +63,11 @@ Controllable Dialogue Generation（CDG），即可控对话生成，指的是给
 ### 数据准备
 #### 属性定义
 [**Persona-Chat**数据集]是一个英文个性化对话生成生成数据集，我们使用该数据集作为应用案例进行实验。**Persona-Chat**中的数据主要由用户描述、对话历史、回复3个主要部分组成。用户描述是使用多个句子刻画用户形象；对话历史则是由多轮对话组成。为研究可控对话生成任务，我们在Persona-Chat数据集的基础上，基于统计和评估等方式构造了5个属性，属性介绍与预处理细节如下：
-- 特异性（Specificity）：统计回复中各词词频，经归一化后离散为3类标签；
-- 情感（Sentiment）：利用Stanford CoreNLP对回复中的情感进行标注，标签为{0:position, 1:neutral, 2:negative};
-- 回复相关性（Response-relatedness)：基于余弦相似度计算回复与上文的相关性（基于Glove embedding计算）;
-- 是否为问句（Question-asking）：根据关键词对回复的句式进行简单标注。关键词为：{how, what, when, where, which, who, whom, whose, why, ?};
-- 长度（Length）：统计回复长度，并离散为3类标签。
+- **特异性（Specificity）**：统计回复中各词词频，经归一化后离散为3类标签；
+- **情感（Sentiment）**：利用Stanford CoreNLP对回复中的情感进行标注，标签为{0:position, 1:neutral, 2:negative};
+- **回复相关性（Response-relatedness)**：基于余弦相似度计算回复与上文的相关性（基于Glove embedding计算）;
+- **是否为问句（Question-asking）**：根据关键词对回复的句式进行简单标注。关键词为：{how, what, when, where, which, who, whom, whose, why, ?};
+- **长度（Length）**：统计回复长度，并离散为3类标签。
 
 
 #### 数据处理
