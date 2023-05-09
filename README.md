@@ -10,18 +10,16 @@
     - [数据准备](#数据准备)
       - [数据加载](#数据加载)
       - [数据处理](#数据处理)
-      - [从本地文件创建数据集-可选](#从本地文件创建数据集-可选)
     - [模型训练](#模型训练)
     - [模型预测](#模型预测)
   - [References](#references)
 
 ## 简介
-Controllable Dialogue Generation（CDG），即可控对话生成，指的是给定一段上下文和指定的属性，自动生成一个流畅、符合上下文且满足给定属性要求的回复。
+Controllable Dialogue Generation（CDG），即可控对话生成，指的是给定一段上下文和指定的属性取值，自动生成一个流畅、符合上下文且满足给定属性要求的回复。
 
 可控对话生成技术在教育、咨询等多个领域均有着巨大的应用价值。具体来说，可控对话生成可广泛应用于问答系统，对话提问，聊天机器人，闲聊机器人主动提问等等场景。
 
-本项目是基于预训练语言模型UNIMO-Text的可控对话生成，具有以下优势：
-
+本项目是基于预训练语言模型UNIMO-Text框架的可控对话生成，具有以下优势：
 - 效果领先。基于百度自研中文预训练语言模型UNIMO-Text。
 - 高性能推理。本项目基于FasterTransformer进行推理加速，能够提供更高性能的推理体验，优化后的推理模型在dureader_qg开发集的推理耗时缩短为优化前的1/5。
 - 训练推理部署全流程打通。本项目提供了全面的定制训练流程，从数据准备、模型训练预测，到模型推理部署，一应俱全。
@@ -164,17 +162,6 @@ python -m paddle.distributed.launch --gpus "0,1" --log_dir ./save/persona/log tr
 │   └── vocab.txt
 └── ...
 ```
-
-**NOTE:** 如需恢复模型训练，`model_name_or_path`配置本地模型的目录地址即可。
-
-微调的模型在dureader_qg验证集上有如下结果(指标为BLEU-4)，其中`unimo-text-1.0-dureader_qg-w/o-template`表示不使用模版策略微调的结果，`unimo-text-1.0-large-dureader_qg`表示使用large模型微调的结果，`unimo-text-1.0-question-generation-dureader_qg`表示在通用问题生成预训练模型`unimo-text-1.0-question-generation`上微调的结果：
-
-|       model_name        | DuReaderQG |
-| :-----------------------------: | :-----------: |
-|    unimo-text-1.0-dureader_qg-w/o-template    | 39.61 |
-|    unimo-text-1.0-dureader_qg    | 41.08 |
-|    unimo-text-1.0-large-dureader_qg    | 41.51 |
-|    unimo-text-1.0-question-generation-dureader_qg    | 44.02 |
 
 ### 模型预测
 
