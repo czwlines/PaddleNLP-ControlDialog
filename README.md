@@ -181,4 +181,5 @@ python -u predict.py \
 
 ## References
 Hu, Zhe, et al. "Controllable Dialogue Generation with Disentangled Multi-grained Style Specification and Attribute Consistency Reward." TASLP2022.
+
 arXiv:2109.06513 (2021). Li, Wei, et al. "Unimo: Towards unified-modal understanding and generation via cross-modal contrastive learning." arXiv preprint arXiv:2012.15409 (2020).
