@@ -3,7 +3,7 @@
 **目录**
 - [可控对话生成](#可控对话生成)
   - [简介](#简介)
-  - [训练定制](#训练定制)
+  - [训练配置](#训练配置)
     - [环境依赖](#环境依赖)
     - [代码结构说明](#代码结构说明)
     - [可控对话生成训练全流程介绍](#可控对话生成训练全流程介绍)
@@ -24,7 +24,7 @@ Controllable Dialogue Generation（CDG），即可控对话生成，指的是给
 - 高性能推理。本项目基于FasterTransformer进行推理加速，能够提供更高性能的推理体验，优化后的推理模型在dureader_qg开发集的推理耗时缩短为优化前的1/5。
 - 训练推理部署全流程打通。本项目提供了全面的定制训练流程，从数据准备、模型训练预测，到模型推理部署，一应俱全。
 
-## 训练定制
+## 训练配置
 
 ### 环境依赖
 - nltk
@@ -60,16 +60,13 @@ Controllable Dialogue Generation（CDG），即可控对话生成，指的是给
 - 使用已做好属性处理的对话生成数据集Persona-Chat进行实验。
 
 2. **模型训练**
-
 - 数据准备完成后，可以开始使用我们的数据集对模型进行训练。首先根据任务需求，调整可配置参数，选择使用GPU或CPU进行模型训练，脚本默认保存在开发集最佳表现模型。
 
-
 3. **模型预测**
-
 - 训练结束后，我们可以加载保存的最佳模型进行模型测试，打印模型预测结果。
 
 ### 数据准备
-#### 数据加载
+#### 属性定义
 [**Persona-Chat**数据集]是一个英文个性化对话生成生成数据集，我们使用该数据集作为应用案例进行实验。**Persona-Chat**中的数据主要由用户描述、对话历史、回复3个主要部分组成。用户描述是使用多个句子刻画用户形象；对话历史则是由多轮对话组成。为研究可控对话生成任务，我们在Persona-Chat数据集的基础上，基于统计和评估等方式构造了5个属性，属性介绍与预处理细节如下：
 - 特异性（Specificity）：统计回复中各词词频，经归一化后离散为3类标签；
 - 情感（Sentiment）：利用Stanford CoreNLP对回复中的情感进行标注，标签为{0:position, 1:neutral, 2:negative};
@@ -170,22 +167,23 @@ python -m paddle.distributed.launch --gpus "0,1" --log_dir ./save/persona/log tr
 ```shell
 export CUDA_VISIBLE_DEVICES=0
 python -u predict.py \
-    --dataset_name=dureader_qg \
-    --model_name_or_path=your_model_path \
+    --predict_file=./data/test.jsonl \
+    --vocab_file=./persona/vocab.txt \
+    --model_name_or_path=./save/persona/checkpoints/model_best_ppl \
     --output_path=./predict.txt \
-    --logging_steps=100 \
-    --batch_size=16 \
+    --logging_steps=10 \
+    --batch_size=64 \
     --max_seq_len=512 \
     --max_target_len=30 \
     --do_predict \
-    --max_dec_len=20 \
+    --max_dec_len=30 \
     --min_dec_len=3 \
-    --template=1 \
     --device=gpu
 ```
 关键参数释义如下：
 - `output_path` 表示预测输出结果保存的文件路径，默认为./predict.txt。
-- `model_name_or_path` 指示了finetune使用的具体预训练模型，可以是PaddleNLP提供的预训练模型，或者是本地的微调好的预训练模型。如果使用本地的预训练模型，可以配置本地模型的目录地址，例如: ./checkpoints/model_xx/，目录中需包含paddle预训练模型model_state.pdparams。
+- `model_name_or_path` 已经训练好的模型路径
 
 ## References
 Hu, Zhe, et al. "Controllable Dialogue Generation with Disentangled Multi-grained Style Specification and Attribute Consistency Reward." TASLP2022.
+arXiv:2109.06513 (2021). Li, Wei, et al. "Unimo: Towards unified-modal understanding and generation via cross-modal contrastive learning." arXiv preprint arXiv:2012.15409 (2020).
