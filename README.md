@@ -1,5 +1,4 @@
 # 可控对话生成
-![image](https://user-images.githubusercontent.com/59118395/236988449-e8cafad2-0230-421e-8138-b31b44814fcd.png)
 
 **目录**
 - [可控对话生成](#可控对话生成)
