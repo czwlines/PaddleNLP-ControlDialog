@@ -17,7 +17,7 @@
 ## 简介
 Controllable Dialogue Generation（CDG），即可控对话生成，指的是给定一段上下文和指定的属性取值，自动生成一个流畅、符合上下文且满足给定属性要求的回复。
 
-本项目首先在Persona-Chat数据集基础上，定义了5个控制属性，用于控制模型生成回复时所用的表达形式、用词复杂程度，以及回复内容的情感、上下文相关性等。然后通过统计评估等方式对数据进行标注，而后基于UNIMO-Text框架，实现了可控对话生成模型。
+本项目首先在Persona-Chat数据集基础上，定义了5个控制属性，用于控制模型生成回复时所用的表达形式、用词复杂程度，以及回复内容的情感、上下文相关性等。然后通过统计评估等方式对数据进行标注，而后基于自研UNIMO-Text模型框架，实现了可控对话生成模型。
 
 ## 训练配置
 
@@ -182,4 +182,4 @@ python -u predict.py \
 ## References
 Hu, Zhe, et al. "Controllable Dialogue Generation with Disentangled Multi-grained Style Specification and Attribute Consistency Reward." TASLP2022.
 
-arXiv:2109.06513 (2021). Li, Wei, et al. "Unimo: Towards unified-modal understanding and generation via cross-modal contrastive learning." arXiv preprint arXiv:2012.15409 (2020).
+Unimo-Text
